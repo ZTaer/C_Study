@@ -1,1 +1,150 @@
 0.
+	B -> F -> C -> A -> D -> E
+
+1.
+	void func() // 无分号
+	void func();{} //也无需分号
+	void func(){ print } // 应该是printf("xxxx");
+	void func(){return 0} // 空函数不需要返回
+	void func(){}; // 无需要分号
+
+2.
+
+	有函数声明,函数就可以放到main函数后面,避免main函数无法找到定义的函数
+
+3.
+
+	不是: 不声明函数一样可以使用,只不过函数要写到主函数之前4.
+	会覆盖原标准库函数库
+
+0.
+
+#include <stdio.h>
+
+
+void print_F();
+void print_I();
+void print_S();
+void print_H();
+void print_C();
+
+
+
+int main(){
+	print_F();
+	print_I();
+	print_S();
+	print_H();
+	print_C();
+	return 0;
+}
+
+void print_F(){
+	printf("########\n##\n##\n######\n##\n##\n##\n\n");
+}
+void print_I(){
+	printf("########\n   ##\n   ##\n   ##\n   ##\n   ##\n########\n\n" );
+}
+void print_S(){
+	printf(" ###### \n##    ##\n##\n ######\n      ##\n##    ##\n ######\n\n");
+}
+void print_H(){
+	printf("##    ##\n##    ##\n##    ##\n########\n##    ##\n##    ##\n##    ##\n\n");
+}
+void print_C(){
+	printf(" ###### \n##\n##\n##\n##\n##\n ######\n\n");
+}
+
+1.
+
+#include <stdio.h>
+#define HIG 7
+#define WID 9
+
+void led( int space ){
+
+  	char F[HIG][WID] = {
+		"########",
+		"##      ",
+		"##      ",
+		"######  ",
+		"##      ",
+		"##      ",
+		"##      "
+	};
+	char I[HIG][WID] = {
+		"########",
+		"   ##   ",
+		"   ##   ",
+		"   ##   ",
+		"   ##   ",
+		"   ##   ",
+		"########"
+	};
+	char S[HIG][WID] = {
+		" ###### ",
+		"##    ##",
+		"##      ",
+		" ###### ",
+		"      ##",
+		"##    ##",
+		" ###### "
+	};
+	char H[HIG][WID] = {
+		"##    ##",
+		"##    ##",
+		"##    ##",
+		"########",
+		"##    ##",
+		"##    ##",
+		"##    ##"
+	};
+
+	char C[HIG][WID] = {
+		" ###### ",
+		"##    ##",
+		"##      ",
+		"##      ",
+		"##      ",
+		"##    ##",
+		" ###### "
+	};
+
+	char spaceList[space+1];
+	int j,i=0;
+	_Bool turn = 1;
+
+	for(j=0;j<space;j++){
+		spaceList[j]=' ';
+	}
+	spaceList[space] = '\0';
+
+	for(i=0;i<HIG;i++){
+		printf("%s",F[i]);
+		printf("%s",spaceList);
+		printf("%s",I[i]);
+		printf("%s",spaceList);
+		printf("%s",S[i]);
+		printf("%s",spaceList);
+		printf("%s",H[i]);
+		printf("%s",spaceList);
+		printf("%s",C[i]);
+		printf("%s",spaceList);
+		putchar('\n');
+	}	
+}
+
+int main(){
+	int spaceNum;
+	printf("空格数: ");
+	scanf("%d",&spaceNum);
+	led(spaceNum);
+	return 0;
+}
+
+
+1. 小甲鱼版本
+
+	1. 小甲鱼把所有的字母放到一个指针数组中
+	2. 通过\可以更直观的写入
+	3. 通过'@'字符确定一行的完成,进入另一个字符串索引

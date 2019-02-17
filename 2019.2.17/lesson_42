@@ -1,0 +1,39 @@
+创建结构体:
+	struct Book { ;; };
+	结构体名称开头大写约定俗成
+	写在main中只能在main函数中使用
+	写在main外面可以定义为全局结构体
+
+二种定义变量方式:
+	1.struct Book {;;}book;
+	2.struct Book book ;
+
+结构体内容引用:
+	book.xxx;
+
+二种初始化方式:
+	第一种:
+		struct Book {;;}book={ ,, }; //类型要与定义时对齐 
+		struct Book book = {,,};
+
+	第二种(初始化指定成员):
+		struct Book{;;}book={.xxx=xxx,};
+		struct Book book = { .xxx = xxx,, }; // 通过.运算符指定初始化值,不用按顺序
+
+判断结构体大小占内存大小: 
+	1. 注意补位,通常为4( 因为结构体进行了"内存排序",这可以有效的节省占用的内存空间,使CPU访问更加迅速 )
+	例如:
+	struct A{
+		char test;
+		int num;
+		char test2;
+	} a = { 'a',5,'b' }; // 此时a大小为12
+	
+	struct B{
+		char test;
+		char test2;
+		int num;
+	} b = { 'a','b',6 } // 此时b大小为8
+	
+
+	

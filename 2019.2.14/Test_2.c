@@ -9,6 +9,7 @@ int main(){
 	pos = 10/2;
 	printf("input: ");
 	scanf("%d",&fnum);
+	
 	while( (pos>=0)&&(numList[pos] != '\0') ){
 		if(numList[pos] == fnum){
 			turn = 1;
@@ -22,6 +23,7 @@ int main(){
 			pos++;
 		}
 	}
+
 	if(turn){
 		printf("%d",result);
 	}

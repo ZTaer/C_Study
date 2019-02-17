@@ -1,0 +1,143 @@
+0. 请问语句 A 在什么情况下会被执行？
+
+	字符为＂非0~9数字＂以及字符不等于＂换行符＂时．语句Ａ被执行
+
+1. 请问代码 A 和代码 B 的区别是？
+
+	代码Ａ，跳到下一次循环i++都会被执行
+	代码Ｂ，跳到下一次循环无法执行i++，会变成死循环
+
+2. 请问下边循环会执行多少次？
+
+	理论无限,在这里当超出double范围大小会被强制停止
+
+3. 请问下边程序输入什么值才能正常退出？
+
+	当输入非正整数类型数据时会退出
+
+4. 请写出下边每行代码执行后 result 的值
+
+	double result = 1.0; 
+	result += 2.6; --- result == 3.6
+	result ++; --- result == 4.6
+	result * 5; --- result == 4.6
+	result = (int)(result + 0.5) --- result == 5
+
+0. 写一个程序，统计用户输入的字符串中，各个元音字母出现的次数（包含大小写的 a、e、i、o、u）
+
+#include <stdio.h>
+
+
+
+int main(){
+	char ch;
+	int a,e,i,o,u,sum;
+	a = e = i = o = u = 0;
+	printf("input: ");
+	while( (ch = getchar()) != '\n' ){
+		switch(ch){
+			case 'a':
+				a += 1;
+				break;
+			case 'e':
+				e += 1;
+				break;
+			case 'i':
+				i += 1;
+				break;
+			case 'o':
+				o += 1;
+				break;
+			case 'u':
+				u += 1;
+				break;
+
+			default: break;
+		}
+	}
+	sum = a+e+i+o+u;	
+	printf("统计结果(共%d个元音字母): \na(%d) --- e(%d) --- i(%d) --- o(%d) --- u(%d)",sum,a,e,i,o,u);
+
+	return 0;
+}
+
+1. 求 10000 以内的素数个数。
+2. 我第１．题于第二题方法一样：－Ｄ,
+	
+#include <stdio.h>
+#include <math.h>
+
+// 求素数
+int su(int num); // 声明函数养成良好习惯
+
+int su( int num ){
+	int i;
+	for(i=2; i<= (int)(sqrt(num)); i++){
+		if( num%i == 0){
+			return 0;
+		}
+	}
+	return 1;
+}
+
+int main(){
+	int end,i,result;
+	printf("input: ");
+	scanf("%d",&end);
+	for(i=2; i<=end; i++){
+		result += su(i);	
+	}
+	printf("共%d个素数!",result);	
+
+	return 0;
+}
+
+
+3. 写一个凯撒加密程序.
+	
+#include <stdio.h>
+
+int main(){
+	
+	int offset=0;
+	char ch,hc;
+
+	printf("偏移量(整数): ");
+	scanf("%d",&offset);
+	getchar();
+	if(offset > 26){ 
+		offset = 26;
+	}
+	else if (offset < (-26)){
+		offset = -26;
+	}
+	
+	printf("请输入明文(字母数字): ");
+	while((ch=getchar()) != '\n'){
+		if( (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') ){
+			hc = ch + offset;
+			if( ( hc > 'z' ) && (ch >= 'a' && ch <= 'z')){ 
+				hc =  'a' + (hc - 'z' -1);
+			}
+			else if( ( hc < 'a') && (ch >= 'a' && ch <= 'z')){
+				hc = 'z' - ('a' - hc -1);
+			}
+			else if( ( hc > 'Z' ) && (ch >= 'A' && ch <= 'Z')){
+				hc =  'A' + (hc - 'Z' -1);
+			}
+			else if( ( hc < 'A') && (ch >= 'A' && ch <= 'Z')){ 
+				hc = 'Z' - ('A' - hc -1);
+			}
+
+		}
+		else{
+			hc = ch; //注意,非字母数字保持不变
+		}
+
+		printf("%c",hc);
+	
+	}
+
+	return 0;
+}
+

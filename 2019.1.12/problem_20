@@ -1,0 +1,152 @@
+0.
+
+	a[3][3] == 4;
+
+1.
+
+	3行4列
+
+2.	
+	5
+
+3.
+
+	2成即可
+#include <stdio.h>
+int main(){
+
+
+	char slogans[5][100]={
+		"1asdasdasdasdasdsa",
+		"2resadasdtsaedasdr",
+		"3sadasdasd",
+		"4asdasasddasd",
+		"5sads",
+	};
+
+	int i;
+	int g;
+	for(i=0;i<5;i++){
+		for(g=0;g<100;g++){
+
+			printf("%c",slogans[i][g]);
+		}
+		putchar('\n');
+	}
+
+}
+答:	1成,通过迭代循环x方向%s可以直接把一行字符输出
+	for(i=0;i<5;i++){
+		printf("%s\n",slogans[i]);
+	}
+
+4.
+
+	使用sizeof()函数
+
+5.
+
+	4行5列
+
+0.
+
+#include <stdio.h>
+
+int main(){
+
+	
+	int a[4][5] = {
+		{1,2,3,4,5},
+		{6,7,8,9,10},
+		{11,12,13,14,15},
+		{16,17,18,19,20}
+	};
+
+	int i,j,s=3;
+	for (i=0; i<4; i++){
+		for (j=0; j<5; j++){
+			printf("%3d",a[i][j]);
+			if( j==s ){
+				putchar('\n');
+				s--;
+			}		
+		}
+	}
+
+	return 0;
+}
+
+1.
+#include <stdio.h>
+
+int main(){
+
+	
+	int a[4][5] = {
+		{1,2,3,4,5},
+		{6,7,8,9,10},
+		{11,12,13,14,15},
+		{16,17,18,19,20}
+	};
+
+	int i,j,s=3;
+	for (i=0; i<4; i++){
+		for (j=0; j<5; j++){
+			printf("%3d",a[i][j]);
+			if( j==s ){
+				putchar('\n');
+				s--;
+			}		
+		}
+	}
+
+	return 0;
+}
+
+2.
+
+#include <stdio.h>
+
+int main(){
+	char ch;
+
+	char a[5][100];
+	int x,i=0,xMax=0,xMin=100,maxLen,minLen;
+	
+	// 处理区
+	printf("请输入5句话: \n");
+	for( x=0; x<5; x++ ){
+		while( (ch = getchar()) != '\n' ){
+			a[x][i++] = ch;
+		}
+		// 记录极值位置	
+		if(i>xMax){
+			xMax = x;
+			maxLen = i;
+		}
+		if( i<xMin ){
+			xMin = x;
+			minLen = i;
+		}
+		i=0;
+	}
+
+	// 输出区
+	printf("其中最长的是: ");
+	for( i=0;i<maxLen;i++ ){
+		printf("%c",a[xMax][i]);
+	}
+	putchar('\n');
+
+	printf("其中最短的是: ");
+	for( i=0;i<minLen;i++ ){
+		printf("%c",a[xMin][i]);
+	}
+	return 0;
+}
+
+
+
+
+
+

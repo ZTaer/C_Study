@@ -1,0 +1,167 @@
+0. 为什么我们说计算机其实是“二傻子”？
+	
+	因为他不聪明，必须用代码它才能知道自己怎么做什么
+
+1. CPU 唯一认识的语言是什么语言？
+
+	2二制代码
+
+2. C 语言编写的源代码转换为汇编语言的过程叫什么？
+
+	编译
+
+3. 编译型语言和解释型语言的本质区别是什么？
+
+	编译型语言转换成汇编语言在转换成二进制语言后在进行cpu执行
+	解释型语言是由，解释器与cpu互动执行
+
+4. 在 Linux 系统上用 C 语言编译的可执行程序，是否能在 Windows 系统上执行？
+
+	能
+5. 解释型编程语言是如何实现跨平台的？
+
+	因为计算机语言直接由解释器与cpu进行交流
+
+6. 莫斯密码的原理其实是什么？
+
+	查指令集
+
+7. 视频中小甲鱼“故弄玄虚”的那段密文还原后是什么内容（中文）？
+
+	QINMEN
+	CHEND
+	IRENC
+	HIFAN
+	SHIF
+	ADONG
+	JINGO 
+	NG
+	秦门
+	切德
+	艾伦克
+	希凡
+	希夫
+	阿当
+	京诺
+	天然气
+
+# include <stdio.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+
+# define Max 256
+
+long total;
+
+int countLines( const char *filename );
+void find AllCodes(const char *path);
+void findALLfiles(const char *path);
+
+
+int countLines(const char *filename)
+{
+	FILE *fp;
+	int count = 0;
+	int temp;
+
+	if ((fp = fopen(filename, "r")) == NULL )
+	{
+		fprintf(stdrr, "Can not open the file: %s\n" , filename);
+		return 0
+	}
+
+	while ((temp = fgetc(fp) != EOF))
+	{
+		if (temp == '\n')
+		{
+			count++;
+		}
+	}
+	
+	fclose(fp);
+	return count;
+}
+
+int isCode(const char *filename)
+{
+	int length;
+	length = strlen(filename);
+	if(!strcmp(filename + (length - 2 ),".c"))
+	{
+		return 1;	
+	}
+	else
+	{
+		return 0 ;
+	}
+}
+
+void findAllDirs(const char *path)
+{
+	DIR *dp;
+	struct dirent *entry;
+	struct stat statbuf;
+
+	if ((dp = opendir(path))=NULL)
+	{
+		fprintf(stderr,"The path %s is wrong!\n",path);
+		return;
+	}
+	chdir(path);
+	while ((entry = readdir(dp) != NULL))
+	{
+		lstat(entry -> d_name, &statbuf);
+		if (!strcmp(".",entry->d_name || !strcmp(".." entry->d_name)))
+		continue;
+
+		if(S_ISDIR(statbuf.st_mode))
+		{
+			findAllDir(entry->d_name);
+
+		}
+		else
+		{
+			if(isCode(entry->d_name))
+			{
+				total += coiuntLines(entry->d_name);
+			}
+		}
+	}
+
+	chdir("..")
+	closedir(dp);
+	
+}
+
+int main()
+{
+	char pth[MAX] = ".";
+	printf("计算中...\n");
+	findAllDirs(path);
+	printf("目前你总共写了 %ld 行代码! \n\n",total);
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

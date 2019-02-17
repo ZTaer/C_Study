@@ -1,0 +1,185 @@
+0. 如果下边代码被执行，程序将怎么样？
+	
+	变成无法停止的输入模式
+
+1. 请问下边进入循环的条件是什么？
+
+……
+while (!condition) //condition可以是任意的表达式,当为任意非零值时都为 true
+{
+	        // 循环体
+}
+……
+2. 比起 while 语句，do…while 语句的特点是什么？
+	
+	while先判定条件在循环
+	do while 先循环在判定条件
+	答：do…while 语句的特点是先进入循环再判断表达式的值。也就是说，无论如何 do…while 语句都会至少执行循环体的内容一次。
+3.如果不上机实验，你能看出下边代码会打印哪个范围内的所有数值呢？
+	
+	char的负值范围０～１２8
+4. 请说明下边语句的作用。
+
+while ((ch = getchar()) == ' ')
+        ;
+获取用户输入的字符,赋值给ｃｈ变量,如果变量为换行符,则停止循环结束程序
+
+5. 为什么小甲鱼说 getchar() 返回值为 int 是为了存放 EOF，而 EOF 通常被定义为 -1，char 类型即可存放，为啥还要 int 类型？
+
+	因为getchar()函数只要返回的是按键对应的ａｓｃｉｉ表值,就可接收返回所有按键,方便易操作．
+
+0. 统计从键盘输入的一行英文句子中大写字母的个数。
+
+#include <stdio.h>
+#include <string.h>
+int main(){
+	int a,i=0,sum=0;
+	char *ch;
+	printf("input: ");
+	scanf("%s",ch);
+	while (1){
+		if (ch[i] >= 'A' && ch[i] <= 'Z'){
+			sum = sum + 1;
+		}
+		else if(ch[i] == '\0'){
+		break;
+		}
+		i++;
+	}
+	printf("%d\n",sum);
+	printf("len = %d",strlen(ch));
+	return 0;
+}
+
+1.
+#include <stdio.h>
+#include <string.h>
+int main(){
+	
+	_Bool turn=1;
+	int i=0;
+	char az[100];
+	printf("请输入: ");
+	scanf("%s",az);
+
+	while(turn){
+	
+		if (az[i] >= 'A' && az[i] <='Z'){
+			az[i] = az[i] + 32;
+		}
+		else if(az[i] >= 'a'&& az[i] <= 'z'){
+			az[i] = az[i] - 32;
+		}
+		else if(az[i] == '\0'){
+			turn = 0;
+			break;
+		}
+		i++;
+	}
+	printf("%s",az);
+
+	return 0;
+}
+
+
+
+2.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
+//思路
+//atoi()函数属于<stdlib.h>
+//默认功能: 提取除字符串开头数字,遇到其它字符串停止获取
+//本次升级功能: 
+//	1.默认功能具备
+//	2.如果字符串中不存在数字字符要返回提示＂未找到如何数值＂
+//	3.检查是否超出int范围(pow(2,32-1))超出提示"数值超出范围"
+
+//具体思路:
+//	创建函数atoi_( 接收１个字符串变量 )
+//	char *ch //接收字符串
+//	int flag=1,pos＝０ //正负值,记录字符串迭代位置
+//	long long int result = 0 //结果值
+//		通过迭代的方法,提出字符串部分
+//			
+//			1. 如果检测到空格进行下一次迭代
+//				是pos++,跳到下一次循环;
+//			2. 如果检测到'-'则
+//				是pos++;flag *= -1,跳到下一次循环
+//			3. 检测到非'0'~'9'结束迭代
+//			4. 如果检测到'0'~'9'范围
+//				计算结果值( result = result * 10 + ch[pos] - '0' )
+//			pos++;
+//		判断result是否为假(迭代完毕)
+//			是则( 返回提示结束函数 )
+//			否则判断是否超出int范围( pow(2,32-1) )
+//				是则( 返回提示结束函数 )
+//				否则然后result*flag值
+
+
+int atoi_new( char *ch );		
+
+int main()
+{
+	int result;
+	char ch[100];
+	printf("input: ");
+	scanf("%s",ch);
+	result = atoi_new(ch);
+	printf("%d",result);
+	return 0;
+}
+
+int atoi_new( char *ch ){
+	int flag = 1, pos = 0;
+	long long int result = 0;
+	_Bool turn = 1i;
+
+	while (turn){
+		if(ch[pos] == ' '){
+			pos++;
+			continue;
+		}
+
+		if(ch[pos] == '-'){
+			pos++;
+			flag *= (-1);
+			continue;
+		}
+		else if(ch[pos] == '+'){
+			pos++;
+			continue;
+		}
+		
+
+		if( (ch[pos] != ' ' && ch[pos] != '-') && (ch[pos] < '0' || ch[pos] > '9') ){
+			turn = 0;
+			break;
+		}
+		else if( ch[pos] >= '0' && ch[pos] <= '9' ){
+			result = result * 10 + ch[pos] - '0'; //核心
+		}
+
+		pos++;
+	}
+
+	if(result != 0){
+		if(result < pow(2,31) && result > (-pow(2,31))){
+			result = result*flag;
+			return result;
+		}
+		else{
+			printf("超出范围!");
+			return 0;
+		}
+	}
+	else{
+		printf("无数字!");
+		return 0;
+	}
+}
+

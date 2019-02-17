@@ -1,0 +1,128 @@
+0.
+
+#include <stdio.h>
+
+#define STRING char *
+#define IF if(
+#define THEN ){
+#define ELSE }else{
+#define FI ;}
+#define WHILE while(
+#define DO ){
+#define OD ;}
+#define INT int
+#define BEGIN {
+#define END }
+
+INT main() BEGIN
+	
+	INT i;
+	
+	printf("请输入你的年龄: ");
+	scanf("%d",&i);
+	
+	IF i<18 THEN
+		printf("你未满18周岁,不得使用这个程序!\n");	
+	ELSE
+		printf("你已满18周岁,欢迎使用本程序,嘻嘻嘻..\n");
+	END
+
+	return 0;
+END
+
+1.
+
+2.
+
+#include <stdio.h>
+
+int main(){
+	
+	// A - 65 --- a - 97
+	char input_;
+	printf("请输入1个大写字母: ");
+	scanf("%c",&input_);
+	
+	if(input_ >= 65 && input_ <= 91){
+		input_ = input_ + 32;
+		printf("转换成功: %c",input_);
+	}
+	else if(input_ >= 97 && input_ <= 123){
+		input_ = input_ - 32;
+		printf("转换成功: %c",input_);
+	}
+	else{
+		printf("请输入单个大写字母!");
+	}
+
+	return 0;
+}
+
+3.
+
+sony.c文件内容
+------------------------------------
+#include <stdio.h>
+#include "ssebtr1.h" // 读取当前目录文
+#include <unistd.h> // 睡眠函数在这里
+
+int main(){
+	int year,top_heart,i,bmp=150;
+	printf("请输入年龄: ");
+	scanf("%d",&year);
+	top_heart = 220 - year;	
+	playSound( bmp );
+	printf("等待5min...\n");
+	sleep(3); // 睡5秒( 暂停使用线程3秒,让给其它程序使用 )
+	i = getHeartRate( year );
+	printf("当前心率: %d\n",i);
+	sleep(1); // 方便查看,不用在意它
+	if(i>=top_heart){
+		printf("请马上停止跑步,否则会GG...!!!\n");
+	}
+	else if(i>=(int)(top_heart*0.85) && i < top_heart){
+		printf("请漫步走!\n");
+		playSound( bmp = bmp - 20 );
+	}
+	else if(i<=(int)(top_heart*0.75)){
+		printf("Come on 请加快节奏!\n");
+		playSound( bmp = bmp + 20 );
+	}
+	else{
+		playSound( bmp );
+	}
+	sleep(1);
+	printf("END!!!\n");
+	return 0;
+}
+-------------------------------------
+
+ssebtr1.h文件内容
+-------------------------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int getHeartRate(int year){
+	int top,bottom,space;
+	top = 220 -year;
+	bottom = (int)(top*0.75);
+	space = top - bottom + 50;
+	srand((unsigned int) (time(NULL))); // 以时间为随机种子的变换srand值,从而达到随机数字的目的
+	return rand()%space+130; // rand()函数生成随机数,%11代表0-10,( rand()函数受srand()函数影响 )
+}
+
+int playSound(int bmp){
+	if(bmp>=170){
+		printf("切换为'带劲'的音乐!\n");
+		return 1;
+	}
+	else if(bmp<=130){
+		printf("切换为'舒缓'的音乐!\n");
+		return 1;
+	}
+	else{
+		printf("播放默认音乐!\n");
+	}
+}
+-------------------------------------

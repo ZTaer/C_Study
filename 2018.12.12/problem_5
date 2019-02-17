@@ -1,0 +1,75 @@
+0. 你需要为程序中的变量、类型、函数和标签起一个名字，我们把这个名字称之为？
+
+	标识符
+
+1. main 是一个合法的标识符吗？
+
+	不是
+
+2. 字符串是常量吗？
+
+	是
+
+3.在C 语言中，转义字符 '\n' 占多大空间？
+	
+	2字节
+
+4. 字符串 "FishC" 由哪些字符构成？
+	
+	字符'F','i','s','h','C'
+
+5. 我们都知道变量就是在内存里挖个坑让你存放数据，数据类型决定坑的大小。那常量有没有数据类型呢？
+
+	有
+
+6. 如果有符号常量定义如下：	
+	#define F(n) 2*n那么请问代码中 F(3+2) 的值等于多少？
+	
+0. 修改下边代码，使用符号常量 NL，代替转义字符 '\n'：	
+				
+	#include <stdio.h>
+	#define NL "\n"
+		int main(){
+			printf("Line1%s",NL);
+			printf("line2%s",NL);
+			return 0;
+		}
+1. 定义量个宏，分别叫 S(r) 和 C(r)，通过它可以计算得到半径为 r 的圆的面积和周长。
+
+	#include <stdio.h>
+	#define PI 3.14159
+	#define S(r) PI*r*r
+	#define C(r) 2*PI*r
+
+	int main(){
+		int r =5;
+		printf("半径为%d的圆,面积是: %.2f,周长: %.2f",r,S(r),C(r));
+		return 0;
+	}
+
+2. 大家都知道菜市的价格每天都在波动，下边我用文字描述，你写成代码：
+
+#include <stdio.h>
+#define KG(j) j*0.5
+#define FQ(j) 3.7*KG(j)
+#define QL(j) 7*KG(j)
+#define XQ(j) 1.3*KG(j)
+#define KXC(j) 8*KG(j)
+#define YC(j) 2.4*KG(j)
+#define YCC(j) 9*KG(j)
+#define HG(j) 6.3*KG(j)
+#define BLB(j) 0.5*KG(j)
+
+
+int main(){
+	float xm,xh,xjy;
+	xm = FQ(2)+KXC(1)+YCC(1);
+	xh = XQ(3)+YC(0.5)+HG(5);
+	xjy = HG(10)+BLB(20);
+	printf("小明需要支付%.2f元\n",xm);
+	printf("小红需要支付%.2f元\n",xh);
+	printf("小甲鱼需要支付%.2f元\n",xjy);
+	return 0;
+}
+
+

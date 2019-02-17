@@ -1,0 +1,129 @@
+0. 你见过最“短小快”的 C 语言语句是什么？
+
+	break;
+
+1. 什么是程序块（语句块）？
+
+	函数{ 括号内容为语句块 }
+
+2. 请问下边代码是否有错，如有错误，请指出来？
+
+	case 后不能跟范围值,只能跟常量目标值,如果多个条件只能在其后加入case: 不能使用逻辑符.
+
+3. 请问下边代码是否有错，如有错误，请指出来？
+
+	ｓｗｉｔｃｈ必须接收的是＂整数类型＂数据.
+4. 
+
+	２个case种标签值不能相同　
+
+5. 之前小甲鱼简单的介绍过字符串，当时是用字符数组的形式来存放（快速回填脑容量 –> 【知识点备忘】S1E8：字符和字符串）C 语言的数组会有一个越界访问的问题（黑阔的利用方法和原理小甲鱼将在数组这一章节给你介绍）
+请你使用 if 语句，对数组进行越界检查，让代码只允许访问数组内的数据。
+
+#include <stdio.h>
+int main(){
+	
+	char ch[6] = "FishC";
+	int num;
+	printf("0~5: ");
+	scanf("%d",&num);
+
+	// 防止访问数组以外的内容
+	if (num >= 5){
+		num = 5;
+	}
+	else if (num <= 0){
+		num = 0;
+	}
+	printf("%c\n",ch[(int)(num)]);
+
+	return 0;
+}
+
+0. 写一个最简单的计算器，支持四则运算。
+
+#include <stdio.h>
+
+int main(){
+
+	float left,right,result;
+	char air;
+	_Bool turn = 1;
+	
+	printf("请输入: ");
+	scanf("%f%c%f",&left,&air,&right);
+	switch(air){
+		case '+': 
+			result = left+right; 
+			break;
+		case '-': 
+			  result = left-right; 
+			  break;
+		case '*': 
+			  result = left*right; 
+			  break;
+		case '/':
+			  if(right == 0){
+			  	printf("分母不能为０\n");
+				turn = 0;
+			  }
+			  else {
+			  	result = left/right;
+			  } break;
+
+		default: 
+			  printf("请输入正确值!\n");
+			  turn = 0;
+			  break;
+	}
+	if (turn){
+		printf("结果: %.2f",result);
+	}
+
+	return 0;
+}
+
+1.
+
+
+#include <Servo.h>
+
+// 为了方便调用，我们为控制左右电机
+// // 前进后退的数字引脚进行了宏定义
+#define LEFT_MOTO_GO    8 
+#define LEFT_MOTO_BACK    9
+#define RIGHT_MOTO_GO    10
+#define RIGHT_MOTO_BACK    11
+// ...省略部分代码...
+void loop(){
+	char ch; // 用于接受命令
+	printf('g' 表示前进；'b' 表示后退；'r' 表示右转；'l' 表示左转);
+	scanf("%c",&ch);
+
+    	switch(ch){
+		case 'g':
+			digitalWrite(8,HIGH);
+			digitalWrite(10,HIGH);
+			digitalWrite(9,LOW);
+			digitalWrite(11,LOW);
+			break;
+		case 'b':
+			digitalWrite(8,LOW);
+			digitalWrite(10,LOW);
+			digitalWrite(9,HIGH);
+			digitalWrite(11,HIGH);
+			break;
+		case 'r':
+			digitalWrite(8,HIGH);
+			digitalWrite(10,LOW);
+			digitalWrite(11,LOW);
+			digitalWrite(9,LOW);
+			break;
+		case 'l':
+			digitalWrite(10,HIGH);
+			digitalWrite(11,LOW);
+			digitalWrite(8,LOW);
+			digitalWrite(9,LOW);
+			break;
+	}
+     }

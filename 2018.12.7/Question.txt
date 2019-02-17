@@ -1,0 +1,64 @@
+0. 下边是不同的编程语言实现在屏幕上打印“I love FishC.com”的代码，对此，你有什么体会？
+
+	python最好用
+
+1. 为什么下边代码不能正常编译？
+
+	因为return 0 ; 原始为字母o
+
+2. 你知道以下程序打印的是什么内容吗？
+	
+	Hello FishC
+
+3. 下边代码错在哪？
+
+    #include <stdio.h>
+
+    int main()
+    {
+            printf("小甲鱼说：好好学习才能天天向上!"); // 符号换成英文格式
+            return 0;
+    
+    }
+
+4. 写一个 printf 函数，要求在屏幕上打印下边内容：
+
+ 	#include <stdio.h>
+
+	 int main(){
+
+		 printf("FishC.com no \"fish\"\n");
+  	 	 return 0 ;
+	}
+
+5. 代码写成下边这样，能正常编译运行吗？
+	
+#include<stdio.h>
+int main(){printf("Hello World\n");return 0;}
+能编译
+
+
+
+
+0.打印飞机
+
+#include <stdio.h>
+
+int main(){
+	        printf("
+	         @\n\
+                / \\n\
+                * *\n\
+                * *\n\
+                * *\n\
+	    * * * * * *\n\
+           * * * * * * * *\n\
+         * * * * * * * * * *\n\
+                * *\n\
+                * *\n\
+              * * * *\n\
+             * * * * * \n ");
+		        return 0 ;
+}
+
+

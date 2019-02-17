@@ -1,0 +1,412 @@
+0.
+	*(str+2);
+	答: *(str + 3);
+1.
+	p 0x11008888
+	p+1 0x1100889
+	p+2 0x110088a
+	p+4 0x110088c
+	p+8 0x1100890
+	答: 注意是整数类型变量,所以间隔4个存储单元
+	p+1 = 0x11008888 + 4 == 0x1100888C
+	p+2 = 0x11008888 + 8 == 0x11008890
+
+2.
+
+	不能,,,,,,,
+
+3.
+
+	不知道唉:-(
+4.
+
+	....
+0.
+
+#include <stdio.h>
+#include <string.h>
+#define Max 1024
+
+char len( char ch[Max] ){
+	char *p = ch;
+	int i=0;
+
+	while( p[i] != '\n' ){
+		i++;
+	}
+	return i;
+
+}
+
+int main(){
+	char ch[Max];
+	int num=0;
+
+	printf("input: ");
+	fgets( ch,Max,stdin );
+
+	printf("%d",len(ch));
+	return 0;
+}
+
+0进阶版.
+
+#include <stdio.h>
+#include <string.h>
+#define Max 1024
+// 关于中文
+// 中文在内存中有3个存储单元,并且为负数
+
+char len( char ch[Max] ){
+	char *p = ch;
+	int i=0,turn=0,result=0;
+
+	while( p[i] != '\n' ){
+		
+		if( p[i] >= 0 ){
+			i++;
+			result++;
+			continue;
+		}
+		else{
+			if( turn == 2 ){
+				i++;
+				turn = 0;
+				result -= 1;	
+				continue;
+			}
+			i++;
+			turn++;
+			result++;
+			continue;
+			
+		}
+	}
+
+	return result;
+
+}
+
+int main(){
+	char ch[Max];
+	int num=0;
+
+	printf("input: ");
+	fgets( ch,Max,stdin );
+	printf("%d",len( ch ));	
+	return 0;
+}
+
+1.
+
+#include <stdio.h>
+#define Max 1024
+int main(){
+	
+	char str1[Max];
+	char str2[Max];
+	char *ch;
+	int i=0;
+
+	ch = str1;
+	
+	printf("input: ");
+	fgets( str1,Max,stdin );
+	while( ch[i] != '\n'){
+		str2[i] = ch[i];
+		i++;
+	}
+	str2[i+1] = '\0';
+	printf("拷贝完毕(str2): %s",str2);
+
+	return 0;
+}
+
+1.进阶版
+#include <stdio.h>
+#define Max 1024
+
+char len( char ch[Max] ){ // 这是上一题的代码,借用下,哈哈哈
+	char *p = ch;
+	int i=0,turn=0,result=0;
+
+	while( (p[i] != '\n') && (p[i] != '\0') ){
+		
+		if( p[i] >= 0 ){
+			i++;
+			result++;
+			continue;
+		}
+		else{
+			if( turn == 2 ){
+				i++;
+				turn = 0;
+				result -= 1;	
+				continue;
+			}
+			i++;
+			turn++;
+			result++;
+			continue;
+			
+		}
+	}
+
+	return result;
+
+}
+
+
+int main(){
+	
+	char str1[Max];
+	char str2[Max];
+	char *ch;
+	int i=0,stop,g;
+
+	ch = str1;
+	
+	printf("input: ");
+	fgets( str1,Max,stdin );
+	printf("拷贝字数: ");
+	scanf("%d",&stop);
+	
+
+	while( ch[i] != '\n'){
+		if( stop <= len(str2) ){
+			break;
+		}
+
+		if( ch[i]>=0 ){
+			str2[i] = ch[i];
+		}
+		else{ // 遇见中文,直接连续赋值3次
+			for(g=0;g<3;g++,i++){
+				str2[i] = ch[i];
+			}
+			continue; // 赋值完后,立刻进行下一次循环,否则i++会使语法出错
+
+		}
+		i++;
+	}
+	str2[(i+1)] = '\0';
+	
+
+	printf("拷贝完毕(str2): %s",str2);
+	return 0;
+}
+
+2.
+
+#include <stdio.h>
+#define Max 1024
+
+// 借用下上一次题写的,嘻嘻
+char len( char ch[Max] ){
+	char *p = ch;
+	int i=0,turn=0,result=0;
+
+	while( (p[i] != '\n') && (p[i] != '\0') ){
+		
+		if( p[i] >= 0 ){
+			i++;
+			result++;
+			continue;
+		}
+		else{
+			if( turn == 2 ){
+				i++;
+				turn = 0;
+				result -= 1;	
+				continue;
+			}
+			i++;
+			turn++;
+			result++;
+			continue;
+			
+		}
+	}
+
+	return result;
+
+}
+
+
+
+int main(){
+	char a[Max],b[Max];
+	char *p;
+	int a_len,b_len;
+	int i=0;
+	p = a;
+
+	printf("1_input: ");
+	fgets( a,Max,stdin );
+	printf("2_input: ");
+	fgets( b,Max,stdin );
+
+	a_len = len( a );
+	while( b[i] != '\n' ){
+		p[ a_len++ ] = b[i];
+		i++;
+	}
+	p[ a_len+1 ] = '\0';
+	
+	printf("%s",p);
+	return 0;
+}
+
+2. 进阶版
+
+#include <stdio.h>
+#include <string.h>
+#define Max 1024
+
+int main(){
+	char a[Max],b[Max];
+	char *p;
+	int i=0,num,end,stop=0,g;
+	p = a;
+
+	printf("1_input: ");
+	fgets( a,Max,stdin );
+	printf("2_input: ");
+	fgets( b,Max,stdin );
+	printf("保存数: ");
+	scanf("%d",&num);
+	
+	end = strlen(p)-1; // 赋值开始位置
+	while( stop<num ){ // 指定循环次数
+		if(b[i] >=0 ){
+			p[ end+i ] = b[i];
+			stop +=1;
+			i++;
+			continue;
+		}
+		else if( b[i] < 0 ){ // 中文字体赋值
+			for(g=0;g<3;g++){
+				p[ end+i ] = b[i];
+				i++;
+			}
+			stop +=1; // 指定长度+1
+			continue;
+		}
+	}
+	printf("%d",i);
+	p[end+i] = '\0'; // 字符串加入结束符
+	
+	for(i=0;p[i] != '\0';i++){
+		printf("%d---\n",p[i]);
+	}
+
+	printf("%s\n",p);	
+	return 0;
+}
+
+3.
+#include <stdio.h>
+#include <string.h>
+#define Max 1024
+
+int main(){
+	char a[Max],b[Max];
+	char *p;
+	int i;
+	_Bool turn=1;
+	p = a;
+
+	printf("input_1: ");
+	fgets( p,Max,stdin );
+	printf("input_2: ");
+	fgets( b,Max,stdin );
+	
+	while(turn){
+		if(p[i] != b[i] ){
+			turn = 0;
+			break;
+		}
+		if( (p[i] == '\n') && (b[i] == '\n') ){
+			turn = 1;
+			break;
+		}
+		i++;
+	}	
+
+	if(turn){
+		printf("二者的%d个字符串完全相同",i);
+	}
+	else{
+		printf("二者在第%d处不同",(i+1));
+	}
+
+	
+	return 0;
+}
+
+3.进阶版
+
+#include <stdio.h>
+#include <string.h>
+#define Max 1024
+
+int main(){
+	char a[Max],b[Max];
+	char *p;
+	int i,g; // g在中文进行循环比较时计数
+	int num,stop=0; // num限制比较次数限制,stop统计比较次数
+	_Bool turn=0; // 由turn决定是否完全相同
+	p = a;
+
+	printf("input_1: ");
+	fgets( p,Max,stdin );
+	printf("input_2: ");
+	fgets( b,Max,stdin );
+	printf("停止数: ");
+	scanf("%d",&num);	
+
+	while( stop < num ){
+		if( (p[i] == '\n') && (b[i] == '\n') ){
+			break;
+		}
+
+		if( (p[i] >= 0 && b[i] >= 0) && (p[i] == b[i]) ){
+			turn = 1;
+			i++;
+			stop++;
+			continue;
+		}
+		else if( (p[i] < 0) && (b[i] < 0) ){ // 中文比较
+			for( g=0;g<3;g++,i++){
+				if( p[i] == b[i] ){
+					turn = 1;
+				}
+				else{
+					turn = 0;
+					break;
+				}
+			}
+			stop++;
+			if(turn == 0){ // 中文不同直接结束循环
+				break;
+			}
+			continue;
+		}
+		else{
+			stop++;
+			turn = 0;
+			break;
+		}
+
+	}
+	
+	printf("turn = %d, i = %d, stop = %d\n",turn,i,stop); // 重要参数观察	
+	if(turn){
+		printf("两者前 %d 个字符完全相同!\n",num);
+	}
+	else{
+		printf("两者不完全相同,第 %d 个字符不同!\n",stop); 
+	}
+	
+	return 0;
+}

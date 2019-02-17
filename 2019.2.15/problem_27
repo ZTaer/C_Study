@@ -1,0 +1,95 @@
+0.
+	const能直接作用与定义语法
+	方便查看const修饰的变量
+
+	修正: const修饰变量为只读性,如果不在定义时进行初始化,那它就没有意义.
+1.
+
+	一样
+2.
+
+	A错误
+	语法错误,非const指针读取const变量会出现语法错误
+	其实const只限定无法通过变量修改值,此时A可以通过指针解引用来修改const变量的值
+
+3.
+#include <stdio.h>
+
+int main()
+{
+        int num = 520;
+	void *p; // 空类型不能解引用
+	int *s;
+	
+	p = &num; // 空类型只能存储内存地址,不能被解引用
+	s = p; // 传递内存地址
+
+        printf("%d\n",*s);
+
+        return 0;
+}
+
+4.
+
+	可以: const 只限制无法通过num变量修改存储的值,但是没有限制指针解引用的方式修改存储的值
+	打印:
+		num = 520
+		num = 1024
+
+	注意: 虽然能执行,但是依然会被警告因为,非const指针索引const变量会出现语法错误
+
+5.
+
+#include <stdio.h>
+
+int main(void){
+	
+	int num = 520;
+	const int *p = &num;
+	const int **q = &p;
+
+	printf("%d\n",**q);
+
+	return 0;
+}
+
+6.
+
+	p.*p被限制
+	修正: const int * const *q = &p; 相当于: (const int ) * (const *q) = &p; // 第一个const 限制的是**p 第二个限制的是*q
+
+7.
+	将 const int * const *q = &p; 修改为: const int * const **q = &p;
+	修正: const int * const * const q = &p;
+8.
+
+	有,一个限制*q,一个限制**q
+
+	修正:
+	1. const int * const *q 限制: **q,*q指向
+	2. const int const **q  限制: **q指向
+
+0.
+
+#include <stdio.h>
+
+int main(){
+	
+	int a = 0x12345678;
+	char *b = (char *)&a; // 将索引的地址转换为char类型,方便char类型指针进行指向
+
+	if( *b == 0x78 ){
+
+		printf("你的机器采用小端字节序.\n");
+		printf("%p 在内存中以此存放为: %p %p %p %p\n",a,*b,*(b+1),*(b+2),*(b+3)); // 注意显示逻辑地址
+
+	}
+	else{
+		printf("你的机器采用大端");
+	}
+
+	return 0;
+}
+	
+	
+	

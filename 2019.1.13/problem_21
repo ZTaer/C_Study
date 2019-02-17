@@ -1,0 +1,119 @@
+0.
+
+	内存地址
+
+1.
+
+	不,也可以存放于指针同一定义类型的数据
+	答: 是的,指针只能存放内存地址
+2.
+	1个
+
+3.
+
+	发生错误,哼!想坑我?
+
+4.
+	
+	A
+	答: 这题是个圈套
+
+5.
+
+	不可以,因为110并没有存储到内存中,而且也不符合C语言语法,会编译错误
+
+6.
+
+	不能执行,因为a并不是指针类型
+
+7.
+
+	a为野指针,野指针随机分配内存地址,所以会出现不同的值
+
+8.
+
+	打印结果: 100
+	*b为左值
+
+0
+#include <stdio.h>
+
+int main(){
+
+	
+	int a,b,c;
+	int *d,*e,*f,*g;
+
+	printf("请输入三个数: ");
+	scanf("%d%d%d",&a,&b,&c);
+
+	d = &a;
+	e = &b;
+	f = &c;
+
+	if(a > b){
+		g = e;
+		e = d;
+		d = g;
+	}
+	if(a > c){
+		g = f;
+		f = d;
+		d = g;
+	}
+	if(b > c){
+		g = f;
+		f = e;
+		e = g;
+	}
+
+
+	printf("%d <= %d <= %d\n", *d,*e,*f);
+
+	return 0;
+}
+
+1.
+#include <stdio.h>
+
+// 尼克彻斯定理
+// 任何一个大于 2 的整数的立方都可以表示成一串连续奇数的和，这些奇数一定是要连续的
+//
+// 首项: first = num*num-num+1
+// 第n项: An = first + n*2
+// 多项和: Sn = n*first + n*(n-1)*2/2
+
+
+int main(){
+
+	int num,end;
+	_Bool turn = 1;
+
+	int an,sn=0;
+	int i=0,g;
+
+	int anlist[100];
+
+	printf("input: ");
+	scanf("%d",&num);
+	end = num*num*num;
+
+	while( turn ){
+		an = (num*num-num+1) + i*2;
+		sn += an;
+		anlist[i++] = an;
+
+		if( end == sn ){
+			break;
+		}
+	}
+
+	if(i<=3){
+		printf("%d = %d + %d + %d",end,anlist[0],anlist[1],anlist[2]);
+	}
+	else if(i>3){
+		printf("%d = %d + %d ... + %d",end,anlist[0],anlist[1],anlist[i-1]);
+	}
+
+	return 0;
+}

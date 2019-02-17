@@ -1,0 +1,138 @@
+0. 如果正、负号运算符的优先级低于加、减号运算符，那么 -3 + 5 的值应该是多少？
+
+	-8
+
+1. 请问下边程序会显示什么内容?
+
+	0
+
+2. 如果不上机实验，你知道下边代码会输出什么吗？
+
+	2 (a=2)*3+4 相当于 a*3+4
+
+3. 请写出下边表达式的值（如果结果为浮点数，请保留六位小数）：
+
+
+	a=1.000000
+	b= 不存在
+	c=4.200000
+	d=0.000000
+	e=3.000000
+	f=1.666667
+	g=0.000000
+
+4. 下边代码中存在两处错误，请指出：
+
+	#include <stdio.h>
+
+	int main()
+	{
+	        int a = (5 + 1.2) % 2;
+	        printf("%d\n", a)；
+	}
+
+	错误:
+		1. 没有return 0;
+		2. printf()应该是英文分割符
+		3. a的结果为浮点数，%d为输出整数
+5. 下边代码是实现摄氏度转换为华氏度，公式没错，但结果却并不正确（输入 32 摄氏度，转换后正确的结果应该是 89.6 华氏度），请修改。
+
+#include <stdio.h>
+
+int main()
+{
+        float fah,cel;
+        printf("请输入摄氏度：");
+        scanf("%f", &cel);
+        fah = 9/5.0*cel+32; // 9/5 = 1 而 9/5.0 = 1.8
+        printf("转换为华摄度是：%.2f\n",fah);
+
+        return 0;
+}
+
+6. 
+#include <stdio.h>
+#include <math.h>
+
+/*
+ 
+ 思路：
+ 接受:
+ 	price = 每平方米价格，
+	area = 面积大小，
+	ratio = 按揭成数7 ～70%, 
+	int time = 分期年数，
+	yir = 年利率5.4 ～ 5.4% ～0.054
+ 计算:
+	按竭 - 转换7～70%
+	分期年数 - 转换月
+	年利率 - 转浮点数
+
+	total_price = 房款总额 = 面积*价格
+	down_payment = 首付 = 房款总额*（1-按竭）
+	loan = 货款本金 = 房款总额*按竭
+	
+	mir = 月利率 = 年利率/12
+	ave_repay = 月均还款 = 贷款本金 * (月利率 * (1 + 月利率)^还款月数) / ((1 + 月利率)^还款月数 - 1)
+	interest = 总利息 = 还款月数 * 月均还款 - 贷款本金
+	total_repay = 还款总额 = 货款本金+总利息
+ 输出:
+ 	房款总额( total_price )
+	首付( down_payment )
+	货款本金( loan )
+	还款总额( total_repay )
+	总利息( interest )
+	月均还款( ave_repay )
+ 
+*/
+
+int main(){
+	int time;
+	float ratio, price, area, yir,mir; // 按竭,每平方米价格，面积大小，年利率
+	float total_price, down_payment, loan, total_repay, interest, ave_repay; //房款总额，首付，货款本金，还款总额，总利息，月均还款
+	
+	// 接受区
+ 	printf("单价( 每平方米 ): ");
+  	scanf("%f",&price);
+  	printf("面积大小: ");
+  	scanf("%f",&area);
+	printf("按揭成数: ");
+	scanf("%f",&ratio);
+  	printf("分期年数: ");
+  	scanf("%d",&time);
+  	printf("年利率: ");
+  	scanf("%f",&yir);
+	
+	// 转换区
+	ratio = ratio*0.1;
+	time = time*12;
+	yir = yir * 0.01;
+	
+	//计算区
+	total_price = area*price;
+	down_payment = total_price * (1 - ratio);
+	loan = total_price * ratio;
+	
+	mir = yir/12;
+	ave_repay = loan * (mir * pow((1+mir),time)) / (pow((1+mir),time)-1);
+	interest = time * ave_repay - loan;
+	total_repay = interest + loan;
+
+	//显示区
+	printf("\
+房款总额: %.2f\n\
+首期付款: %.2f\n\
+货款本金: %.2f\n\
+还款总额: %.2f\n\
+支付利息: %.2f\n\
+月均还款: %.2f",total_price,down_payment,loan,total_repay,interest,ave_repay);
+
+	return 0;
+}
+
+
+
+
+
+
+

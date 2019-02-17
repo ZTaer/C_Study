@@ -1,0 +1,111 @@
+0.
+
+	str为指针的情况下,是等价的
+
+1.
+
+	2
+	// 因为b初始指向a[3]的内存地址,地址在进行加减,即引导除数组其它数据
+
+2.
+
+	如果str1与str2在指针情况下,确实不能比较
+	因为指针的变量名字,只是一个内存地址,并不是存储的值,所以无法比较3.
+	可以的
+	a = a+b;
+	b = a-b; // 此时a的值赋给b
+	a = a-b; // b已经被a赋值,所以a-b得b
+
+4.
+
+	没有区别,变量名默认指向是开头内存地址
+	&索取的也只是变量名字的地址,也是开头地址
+	
+	答:
+	int array[10] = {0,1,2,3,4,5,6,7,8,9};
+	array与&array有区别
+	array与&array值相同,但是意义不一样,array表示开头地址,&array表示整个数组的位置
+
+5.
+
+	
+	目测: 超出数组之外,应该是随机值
+	实测: 怎么是4??
+	
+	答:
+	int array[10] = { 0,1,2,3,4,5,6,7,8,9 }
+	&array表示整个数组的地址,所以(&array+1)表示的整个数组地址最后位置,(int*)强制转换后为array[10]的位置( 第11个元素 ),*(*(p+1)-6)相当于array[10-6] == array[4]
+
+	核心: 
+		array开头地址,array+1为第二元素地址
+		&array为整个数组地址,&array+1数组最后位置
+
+
+6.
+
+	为什么???/(ㄒoㄒ)/~~
+	答: 
+	4
+	&array为总体数组地址,&array+1相当于数组最后位置
+	*(p+1) == array[11]
+	*(p+1) - 6 == array[11-6]
+
+7.
+
+	.....不知道.../(ㄒoㄒ)/~~
+	答:在笔记中.关于数组区别&array
+
+0.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main( int argc , char *argv[] ){
+	int i,sum=0;
+	for( i=0;i<argc;i++ ){
+		sum += atoi( argv[i] ); 
+	}
+	printf("sum = %d",sum);
+
+	return 0;
+}
+
+1.
+// 反复看几遍指针数组,实验几遍,总是出错,实在理解不了他,所以只能另辟蹊径啦,不过结果是一样的
+#include <stdio.h>
+
+int main(){
+	
+	char *array[5] = {"FishC","Five","Star","Good","WoW"};
+	char *p=array[0];
+	int i,j;
+	
+	for( i=0; i<5; i++ ){
+		for(j=0; ( p=array[i] ),*(p+j) != '\0';j++  ){
+			printf("%c ",*(p+j));
+		}
+		printf("\n");
+	}
+
+	return 0;
+}
+
+2.
+
+#include <stdio.h>
+
+int main(){
+	
+	char *array[5] = {"FishC","Five","Star","Good","Wow"};
+	char *p=array[0];
+	int i,j;
+	
+	for( i=0; i<5; i++ ){
+		for(j=0; array[i][j] != '\0';j++  ){
+			printf("%c ",array[j][i]);
+		}
+		printf("\n");
+	}
+
+	return 0;
+}
